@@ -45,6 +45,8 @@ app.set('views', 'views')
 const adminRoutes = require('./routes/admin')
 const shopRoutes = require('./routes/shop')
 const authRoutes = require('./routes/auth')
+const isAuth = require('./middlewares/is-auth')
+const { postOrder } = require('./controllers/shop')
 
 app.use(express.urlencoded({ extended: false }))
 app.use(multer({ storage: fileStorage, fileFilter }).single('image'))
@@ -79,7 +81,7 @@ app.use((req, res, next) => {
             next(new Error(err))
         })
 })
-
+app.post('/create-order', isAuth, postOrder)
 app.use(csrfProtection)
 app.use((req, res, next) => {
     res.locals.csrfToken = req.csrfToken()
