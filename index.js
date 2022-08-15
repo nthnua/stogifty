@@ -95,7 +95,7 @@ app.use(get404)
 
 mongoose
     .connect(process.env.MONGODB_URI)
-    .then(result => {
+    .then(() => {
         console.log('DB Connected!')
         app.listen(process.env.PORT || 3000)
     })
